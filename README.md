@@ -1,2 +1,2 @@
 # PhillsArtWorld
-Craete a  Website using Springboot application  backend with Angular front end. 
+Web developemt using Springboot application  backend with Angular front end. 
