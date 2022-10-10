@@ -35,20 +35,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-   
-    
     
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
 //    @Autowired
 //    private JwtService jwtService;
-   @NonNull
+    @NonNull
     @Lazy
     @Autowired
     private UserDetailsService jwtService;
     
+   
+   
 
     @Bean
     @Override

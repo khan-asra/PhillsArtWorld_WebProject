@@ -42,7 +42,7 @@ public List<Product> galleryProducts() {
 	
 	public void deleteProduct(Long productId) {
 		
-		//delete by ID - PLEASE WORKKKKK
+		
 		productRepository.deleteById(productId);
 		
 	}

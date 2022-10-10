@@ -40,6 +40,12 @@ public class JwtService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * This method will create the jwt Token and will return the Jwt Response 
+     * @param jwtRequest
+     * @return Jwt Response 
+     * @throws Exception
+     */
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
         String userPassword = jwtRequest.getUserPassword();

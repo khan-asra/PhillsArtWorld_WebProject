@@ -1,7 +1,4 @@
 package ca.sheridancollege.khanasr.configuration;
-
-
-
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.NonNull;
 
@@ -31,6 +28,7 @@ import java.io.IOException;
 
 
 /**
+ * aims to guarantee a single execution per request dispatch, on any servlet container. 
  * @author asra.k
  * Sep. 1, 2022
  */
@@ -46,11 +44,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
     private JwtService jwtService;
 
-    
-    
-  //  private final Logger LOG = LoggerFactory.getLogger(CorsFilter.class);
-    
-    
+
+    /**
+     * This doFilter implementation stores a request attribute for "already filtered",
+     *  proceeding without filtering again if the attribute is already there.
+     *  Same contract as for doFilter, but guaranteed to be just 
+     *  invoked once per request within a single request thread.
+     */
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -58,8 +59,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
      
-        
-
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
@@ -74,7 +73,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
           
         }
         
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = jwtService.loadUserByUsername(username);

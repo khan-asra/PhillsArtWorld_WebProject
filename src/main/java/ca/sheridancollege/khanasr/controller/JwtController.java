@@ -24,6 +24,12 @@ public class JwtController {
     @Autowired
     private JwtService jwtService;
 
+    /**
+     * This method is called from the front end to check the jwt request 
+     * @param jwtRequest
+     * @return
+     * @throws Exception
+     */
     @PostMapping({"/authenticate"})
     public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         return jwtService.createJwtToken(jwtRequest);
