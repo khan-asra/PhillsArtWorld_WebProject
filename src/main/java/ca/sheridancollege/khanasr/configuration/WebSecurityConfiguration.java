@@ -59,7 +59,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("*/*", "/submitContactEmail","/getAllFaq","/authenticate","/registerNewUser","/getGallery","/galleryProducts","/getAllProducts").permitAll()
+                .authorizeRequests().antMatchers("*/*", "/submitContactEmail","/getAllFaq","/authenticate","/registerNewUser","/getGallery","/galleryProducts","/getAllProducts","/sendMail").permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
