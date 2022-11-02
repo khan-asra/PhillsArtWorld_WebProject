@@ -32,11 +32,13 @@ public class FaqController {
 		return faqService.getAllFaq() ;
 	}
 	
+	@PreAuthorize("hasRole('Admin')")
 	@PostMapping({"/addEditFaq"})
 	public void addNewFaq(@RequestBody Faq faq) {
 		faqService.addNewFaq(faq);
 	}
 	
+	@PreAuthorize("hasRole('Admin')")
 	@DeleteMapping({"/deleteFaq/{id}"})
 	public void deleteFaq(@PathVariable("id") Long id) {
 		faqService.deleteFaq(id)	;}

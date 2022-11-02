@@ -67,7 +67,7 @@ public class TestCases {
     @Test
     @WithMockUser(roles="Admin")
     public void checkProductByID() {
-        Product product = prodController.getProductById((long)6);
+        Product product = prodController.getProductById((long)2);
         assertTrue(product!=null, "Product is not workingas expected");
 
     }
@@ -80,20 +80,20 @@ public class TestCases {
      * @throws AccessDeniedException
 
      */
-
-    @Test
-
-    @WithMockUser(roles = "User")
-
-    public void checkDelete() throws AccessDeniedException {
-        AccessDeniedException thrown = assertThrows(AccessDeniedException.class, () -> {
-            prodController.getProductById((long) 6);
-        });
-        Assertions.assertEquals("Access is denied", thrown.getMessage());
-
-
-
-    }
+//
+//    @Test
+//
+//    @WithMockUser(roles = "User")
+//
+//    public void checkDelete() throws AccessDeniedException {
+//        AccessDeniedException thrown = assertThrows(AccessDeniedException.class, () -> {
+//            prodController.getProductById((long) 6);
+//        });
+//        Assertions.assertEquals("Access is denied", thrown.getMessage());
+//
+//
+//
+//    }
 
     
 
@@ -110,6 +110,71 @@ public class TestCases {
         assertTrue( faqs.size() > 1,"FAQ not received");
 
     }
+    
+    /**
+     * Tests Required for the Sprint:
+     * Test add/edit/delete product as user and admin
+     * Test add/edit/delete faq as user and admin
+     */
+    
+    /**
+     * Test to check if user has access to delete function
+     * @throws AccessDeniedException
+     */
+    @Test
+    @WithMockUser(roles = "User")
+        public void checkDeleteWithUser() throws AccessDeniedException {
+            AccessDeniedException thrown = assertThrows(AccessDeniedException.class, () -> {
+                prodController.deleteProduct((long)5);
+            });
+            Assertions.assertEquals("Access is denied", thrown.getMessage());
+    
+    
+    
+        }
+    
+    /**
+     * Test to check if user has access to delete faq function
+     * @throws AccessDeniedException
+     */
+    @Test
+    @WithMockUser(roles = "User")
+        public void checkDeleteFAQWithUser() throws AccessDeniedException {
+            AccessDeniedException thrown = assertThrows(AccessDeniedException.class, () -> {
+            	faqController.deleteFaq((long)3);
+            });
+            Assertions.assertEquals("Access is denied", thrown.getMessage());
+    
+    
+    
+        }
+    /**
+     * Test to see if admin can delete product
+     */
+    @Test
+    @WithMockUser(roles="Admin")
+    public void checkDeleteAdmin() {
+    	int initial_size = prodController.getAllProducts().size();
+    	prodController.deleteProduct((long)6);
+    	int final_size = prodController.getAllProducts().size();
+    	assertTrue(initial_size == final_size+1, "Delete not successful" );
+    	
+    }
+    
+    /**
+     * Test to see if admin can delete faq
+     */
+    @Test
+    @WithMockUser(roles="Admin")
+    public void checkDeleteFAQAdmin() {
+    	int initial_size = faqController.getAllFaq().size();
+    	faqController.deleteFaq((long)5);
+    	int final_size = faqController.getAllFaq().size();
+    	assertTrue(initial_size == final_size+1, "Delete not successful" );
+    	
+    }
+    
+    
 
     
    
