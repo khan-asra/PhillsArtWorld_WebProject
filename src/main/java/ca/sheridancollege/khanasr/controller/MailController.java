@@ -32,9 +32,7 @@ public class MailController {
 	@Autowired
 	private PotentialCustomerDao potentialCustDao;
 	
-	
 
-	
 
 	@GetMapping({"/getPotentialCustomers"})
 	public List<PotentialCustomer> getPotentialCustomer(){
