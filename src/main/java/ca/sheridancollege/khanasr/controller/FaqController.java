@@ -17,8 +17,14 @@ import ca.sheridancollege.khanasr.entity.Faq;
 
 import ca.sheridancollege.khanasr.services.FaqService;
 
-@CrossOrigin("*")
 
+/**
+ * This is the Faq Controller 
+ * 
+ * @author asra.k
+ * Sep. 27, 2022
+ */
+@CrossOrigin("*")
 @RestController
 public class FaqController {
 	

@@ -1,13 +1,18 @@
 package ca.sheridancollege.khanasr.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
+import ca.sheridancollege.khanasr.dao.PotentialCustomerDao;
+import ca.sheridancollege.khanasr.entity.PotentialCustomer;
+import ca.sheridancollege.khanasr.services.PotentialCustomerService;
 import ca.sheridancollege.khanasr.services.SendMail;
 
 
@@ -17,46 +22,44 @@ import ca.sheridancollege.khanasr.services.SendMail;
 public class MailController {
 
 	
-	
+
 	@Autowired
 	private SendMail senderService;
 	
-	/**
-	 * This method is called when submit button is pressed on contact me
-	 * Email will be send with all the details.
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param subject
-	 * @param message
-	 * @return
-	 */
-//	@PostMapping({"/submitContactEmail/{firstName}/{lastName}/{email}/{subject}/{message}"})
-//		public String submitContactEmail(@PathVariable("firstName") String firstName, @PathVariable("lastName")String lastName,
-//				@PathVariable("email") String email, @PathVariable("subject") String subject, @PathVariable("message") String message
-////				, @RequestParam("files") MultipartFile[] files 
-//				) {
-//		System.out.print("--------------------------INSIDE------------------------------");
-//		String emailAddress="1khan.asra@gmail.com";
-//		System.out.print("Name"+firstName);
-//		String fullName = firstName+"  "+lastName;
-//		
-//		//FileSystemResource fileSystem= new FileSystemResource(new File(files));
-//		message= message+"\n"+"Please contact me at "+ email+"\n"+fullName;
-//		
-//		senderService.sendMail(emailAddress,subject,message
-//			//	,files
-//				
-//				);
-//		return "send";
-//		
-//	}
-//	
-//	
-//	
-//	
-//}
+	@Autowired
+	private PotentialCustomerService potentialCustService;
+	
+	@Autowired
+	private PotentialCustomerDao potentialCustDao;
+	
 
+
+	@GetMapping({"/getPotentialCustomers"})
+	public List<PotentialCustomer> getPotentialCustomer(){
+		return  potentialCustService.getAllCustomer();
+	}
+	
+
+	
+	@PostMapping({"/sendMail"})
+	public PotentialCustomer sendMail(@RequestBody PotentialCustomer potentialCust) {
+		
+		
+		potentialCustDao.save(potentialCust);
+		
+		System.out.print("--------------------------INSIDE------------------------------");
+		String emailAddress="1khan.asra@gmail.com";
+		System.out.print("Name"+ potentialCust.firstName);
+		String fullName = potentialCust.firstName+"  "+potentialCust.lastName;
+		
+		potentialCust.message = potentialCust.message+ "\n"+"Please contact me at "+ potentialCust.email+"\n"+fullName;
+		senderService.sendMail(emailAddress,potentialCust.subject,potentialCust.message
+			
+	
+				);
+		
+		return potentialCust;
+	}
 
 
 
@@ -80,6 +83,8 @@ senderService.sendMail(emailAddress,subject,message
 return "send";
 
 }
+
+
 
 
 

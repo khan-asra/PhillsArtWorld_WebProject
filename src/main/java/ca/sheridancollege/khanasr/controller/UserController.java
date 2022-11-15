@@ -17,11 +17,12 @@ import ca.sheridancollege.khanasr.services.UserService;
  * @author asra.k
  * Aug. 27, 2022
  */
-
 @CrossOrigin(origins = "http://localhost:4200",exposedHeaders="Access-Control-Allow-Origin")
 @RestController
 public class UserController {
 
+	
+	
     @Autowired
     private UserService userService;
 
@@ -36,6 +37,7 @@ public class UserController {
     }
 
     @GetMapping({"/forAdmin"})
+
     @PreAuthorize("hasAnyRole('Admin','User')")
     public String forAdmin(){
         return "This URL is only accessible to the admin";

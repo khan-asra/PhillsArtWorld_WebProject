@@ -130,7 +130,7 @@ public class ProductController {
 	 * @param productId
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('Admin')")
+//	@PreAuthorize("hasRole('Admin')") 
 	@GetMapping({"/getProductById/{productId}"})
 	public Product getProductById(@PathVariable("productId") Long productId) {
 		return productService.getProductById(productId);
