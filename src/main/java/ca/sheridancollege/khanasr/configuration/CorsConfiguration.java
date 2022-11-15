@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.*;
 /**
  * A container for CORS configuration along with methods to check against the actual origin, 
  * HTTP methods, and headers of a given request. 
- * @author asra.k
+ * @author devansh.kr
  * Sep. 27, 2022
  */
 @Configuration
